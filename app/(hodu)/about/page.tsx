@@ -1,3 +1,4 @@
+import FacultyPhoto from '@/components/hodu/FacultyPhoto'
 import { createClient } from '@/lib/supabase/server'
 import { HODU_SITE_ID, HODU } from '@/lib/hodu'
 import { Phone, ArrowRight, Target, Eye, GraduationCap, Award } from 'lucide-react'
@@ -219,17 +220,7 @@ export default async function AboutPage() {
                 <div className="flex flex-col items-center w-full">
                   {/* Proportional, compact circular avatar */}
                   <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden mx-auto bg-neutral-100 ring-4 ring-[#921e1f]/15 group-hover:ring-[#921e1f]/35 p-0.5 shadow-xs shrink-0 flex items-center justify-center transition-all">
-                    {founder.photo_url ? (
-                      <img
-                        src={founder.photo_url}
-                        alt={founder.name}
-                        className="w-full h-full object-cover object-top rounded-full"
-                      />
-                    ) : (
-                      <span className="text-2xl font-bold text-[#921e1f]">
-                        {founder.name.slice(0, 2).toUpperCase()}
-                      </span>
-                    )}
+                    <FacultyPhoto src={founder.photo_url} name={founder.name} className="w-full h-full object-cover object-top rounded-full" fallbackClassName="text-2xl rounded-full" />
                   </div>
 
                   <h3 className="text-lg sm:text-xl font-bold text-neutral-900 group-hover:text-[#921e1f] transition-colors mt-3.5">
@@ -285,17 +276,7 @@ export default async function AboutPage() {
                 <div className="text-center flex flex-col items-center">
                   {/* Proportional circular avatar */}
                   <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mx-auto bg-neutral-100 ring-4 ring-[#921e1f]/15 group-hover:ring-[#921e1f]/35 p-0.5 shadow-xs shrink-0 flex items-center justify-center transition-all">
-                    {member.photo_url ? (
-                      <img
-                        src={member.photo_url}
-                        alt={member.name}
-                        className="w-full h-full object-cover object-top rounded-full"
-                      />
-                    ) : (
-                      <span className="text-xl font-bold text-[#921e1f]">
-                        {member.name.slice(0, 2).toUpperCase()}
-                      </span>
-                    )}
+                    <FacultyPhoto src={member.photo_url} name={member.name} className="w-full h-full object-cover object-top rounded-full" fallbackClassName="text-xl rounded-full" />
                   </div>
 
                   <h4 className="text-base sm:text-lg font-bold text-neutral-900 group-hover:text-[#921e1f] transition-colors mt-3">

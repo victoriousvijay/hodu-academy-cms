@@ -99,6 +99,7 @@ export default function HoduFooter({ siteName = HODU.name, logoUrl = '', site, a
                 { label: 'Frequently Asked Questions', href: '/faq' },
                 { label: 'Academic Blog', href: '/blog' },
                 { label: 'Contact & Diagnostic', href: '/contact' },
+                { label: 'Careers at Hodu', href: '/careers' },
               ].map(l => (
                 <li key={l.label}>
                   <Link href={l.href} className="hover:underline transition-colors block">
