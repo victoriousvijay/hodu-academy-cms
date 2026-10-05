@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { sendFormEmail } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,6 +23,12 @@ export async function POST(req: NextRequest) {
     })
 
     if (error) throw error
+
+    await sendFormEmail({
+      subject: `New Callback Request: ${name.trim()} (${phone.trim()})`,
+      heading: 'New Callback Request',
+      fields: { Name: name, Phone: phone, Class: class_level, 'Target Exam': target_exam, City: city },
+    })
 
     return NextResponse.json({ success: true })
   } catch (err) {

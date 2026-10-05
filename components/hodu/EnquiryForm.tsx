@@ -2,8 +2,6 @@
 
 import { useState } from 'react'
 import { Loader, Send, CheckCircle2 } from 'lucide-react'
-import { HODU_SITE_ID } from '@/lib/hodu'
-import { createClient } from '@/lib/supabase/client'
 
 export default function EnquiryForm() {
   const [form, setForm]   = useState({ name: '', phone: '', message: '' })
@@ -20,15 +18,12 @@ export default function EnquiryForm() {
       return
     }
     setLoading(true); setErr('')
-    const supabase = createClient()
-    const { error } = await supabase.from('cms_leads').insert({
-      site_id: HODU_SITE_ID,
-      name:    form.name.trim(),
-      phone:   form.phone.trim(),
-      message: form.message.trim() || null,
-      status:  'new',
-    })
-    if (error) setErr('Something went wrong. Please try again.')
+    const res = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...form, source: 'Free Consultation Enquiry' }),
+    }).catch(() => null)
+    if (!res?.ok) setErr('Something went wrong. Please try again.')
     else setDone(true)
     setLoading(false)
   }

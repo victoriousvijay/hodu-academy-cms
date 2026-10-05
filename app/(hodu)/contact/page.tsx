@@ -1,8 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { HODU, HODU_SITE_ID } from '@/lib/hodu'
-import { createClient } from '@/lib/supabase/client'
+import { HODU } from '@/lib/hodu'
 import { MapPin, Phone, Mail, CheckCircle, Clock, ShieldCheck, Loader } from 'lucide-react'
 import ScrollReveal from '@/components/hodu/ScrollReveal'
 
@@ -30,15 +29,12 @@ export default function ContactPage() {
       return
     }
     setLoading(true); setErr('')
-    const supabase = createClient()
-    const { error } = await supabase.from('cms_leads').insert({
-      site_id: HODU_SITE_ID,
-      name: form.name,
-      phone: form.phone,
-      message: `[${form.category}] ${form.email} — ${form.message}`,
-      status: 'new',
-    })
-    if (error) setErr('Unable to submit inquiry. Please try again.')
+    const res = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...form, source: 'Contact Page Enquiry' }),
+    }).catch(() => null)
+    if (!res?.ok) setErr('Unable to submit inquiry. Please try again.')
     else setDone(true)
     setLoading(false)
   }

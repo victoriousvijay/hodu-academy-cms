@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import FacultyPhoto from '@/components/hodu/FacultyPhoto'
 import ScrollReveal from '@/components/hodu/ScrollReveal'
 import { GraduationCap, Award, BookOpen, Sparkles, CheckCircle2 } from 'lucide-react'
 
@@ -78,18 +79,7 @@ export default function AboutFacultyDirectory({ facultyList }: AboutFacultyDirec
                   {/* Photo & Badge */}
                   <div className="flex items-start justify-between gap-4">
                     <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-brand-blush border-2 border-brand-border/60 shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-2xs">
-                      {member.photo_url ? (
-                        <img
-                          src={member.photo_url}
-                          alt={member.name}
-                          className="w-full h-full object-cover object-top"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center font-bold text-lg text-brand-maroon bg-brand-maroon/10">
-                          {member.name.slice(0, 2).toUpperCase()}
-                        </div>
-                      )}
+                      <FacultyPhoto src={member.photo_url} name={member.name} className="w-full h-full object-cover object-top" fallbackClassName="text-lg" />
                     </div>
 
                     <div className="flex flex-col items-end gap-1.5 text-right">

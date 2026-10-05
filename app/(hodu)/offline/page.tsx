@@ -1,3 +1,4 @@
+import FacultyPhoto from '@/components/hodu/FacultyPhoto'
 import { HODU, HODU_SITE_ID } from '@/lib/hodu'
 import { SITE_URL, getLocalBusinessSchema, getBreadcrumbSchema } from '@/lib/seo'
 import Link from 'next/link'
@@ -28,7 +29,6 @@ import HomeHeroCarousel from '@/components/hodu/HomeHeroCarousel'
 import CampusFacilitiesSection from '@/components/hodu/CampusFacilitiesSection'
 import LifeAtHoduCarousel from '@/components/hodu/LifeAtHoduCarousel'
 import { parseMediaUrl } from '@/lib/homeCarousel'
-import { normalizeImageUrl } from '@/lib/imageUtils'
 
 export const dynamic = 'force-dynamic'
 
@@ -440,11 +440,7 @@ export default async function OfflinePage() {
                     <div className="w-full flex flex-col items-center">
                       <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden mx-auto mb-4 bg-neutral-50 border border-neutral-100 flex items-center justify-center shrink-0 shadow-xs">
                         {dir.photo_url ? (
-                          <img
-                            src={normalizeImageUrl(dir.photo_url)}
-                            alt={dir.name}
-                            className="w-full h-full object-cover"
-                          />
+                          <FacultyPhoto src={dir.photo_url} name={dir.name} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex flex-col items-center justify-center font-serif-editorial font-bold text-brand-maroon bg-brand-blush">
                             <Crown size={24} className="text-brand-maroon mb-0.5 opacity-80" />
@@ -493,17 +489,7 @@ export default async function OfflinePage() {
                     <div className="bg-white border-2 border-brand-maroon rounded-2xl p-6 text-center shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between items-center h-full group">
                       <div className="w-full flex flex-col items-center">
                         <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mx-auto mb-3.5 bg-neutral-50 border border-neutral-100 flex items-center justify-center shrink-0 shadow-xs">
-                          {f.photo_url ? (
-                            <img
-                              src={normalizeImageUrl(f.photo_url)}
-                              alt={f.name}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center font-bold text-base text-brand-maroon bg-brand-blush">
-                              {f.name.slice(0, 2).toUpperCase()}
-                            </div>
-                          )}
+                          <FacultyPhoto src={f.photo_url} name={f.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" fallbackClassName="text-base bg-brand-blush" />
                         </div>
 
                         <h4 className="font-serif-editorial text-base sm:text-lg font-bold text-brand-maroon">
