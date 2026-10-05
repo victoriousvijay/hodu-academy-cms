@@ -11,7 +11,7 @@ function escapeHtml(v: string) {
 
 /**
  * Sends a form-submission notification through Resend.
- * Env: RESEND_API_KEY (required), RESEND_FROM_EMAIL, NOTIFY_EMAIL_TO (comma-separated).
+ * Env: RESEND_API_KEY (required), RESEND_FROM_EMAIL, NOTIFY_EMAIL_TO (comma-separated, defaults to thehoduacademy@gmail.com).
  * Never throws — returns false on failure so form submissions still succeed.
  */
 export async function sendFormEmail(opts: {
@@ -22,9 +22,9 @@ export async function sendFormEmail(opts: {
   attachments?: EmailAttachment[]
 }): Promise<boolean> {
   const apiKey = process.env.RESEND_API_KEY
-  const to = (process.env.NOTIFY_EMAIL_TO || '').split(',').map(s => s.trim()).filter(Boolean)
+  const to = (process.env.NOTIFY_EMAIL_TO || 'thehoduacademy@gmail.com').split(',').map(s => s.trim()).filter(Boolean)
   if (!apiKey || to.length === 0) {
-    console.warn('Resend not configured: set RESEND_API_KEY and NOTIFY_EMAIL_TO')
+    console.warn('Resend not configured: set RESEND_API_KEY')
     return false
   }
 
